@@ -1,10 +1,10 @@
 # 1) Build the React app
-From node:22-alpine As frontend
+FROM node:22-alpine AS frontend
 WORKDIR /app/frontend
 COPY frontend/package*.json ./
 RUN npm ci
 COPY frontend/ ./
-RUN npm run Build
+RUN npm run build
 
 # 2) Build the Spring Boot jar, with the React build inside it
 FROM eclipse-temurin:26-jdk AS backend
@@ -21,5 +21,6 @@ RUN ./mvnw -q -DskipTests package
 FROM eclipse-temurin:26-jre
 WORKDIR /app
 COPY --from=backend /app/target/*.jar app.jar
-Expose 8083
-CMD ["java","-jar","app.jar"]
+ENV JAVA_TOOL_OPTIONS="-Xmx300m"
+EXPOSE 8083
+CMD ["java", "-jar", "app.jar"]
