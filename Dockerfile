@@ -12,10 +12,10 @@ WORKDIR /app
 COPY .mvn .mvn
 COPY mvnw pom.xml ./
 RUN sed -i 's/\r$//' mvnw && chmod +x mvnw
-RUN ./mvnw -q dependency:go-offline
+
 COPY src src
 COPY --from=frontend /app/frontend/dist/ src/main/resources/static/
-RUN ./mvnw -q -DskipTests package
+RUN ./mvnw -DskipTests package
 
 # 3) Run it
 FROM eclipse-temurin:26-jre
