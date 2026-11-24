@@ -1,6 +1,6 @@
 FROM eclipse-temurin:26-jre
 WORKDIR /app
-COPY deploy/app.jar app.jar
+ADD https://github.com/ajaykumar-0101/ai-helpdesk/releases/download/v1/app.jar app.jar
 ENV JAVA_TOOL_OPTIONS="-Xmx300m"
 EXPOSE 8083
 CMD ["java", "-jar", "app.jar"]
