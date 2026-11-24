@@ -5,3 +5,4 @@ frontend/node_modules/
 .idea/
 *.log
 .env
+src/main/resources/static/deploy/
